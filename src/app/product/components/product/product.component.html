@@ -1,0 +1,111 @@
+<div class="container">
+  <div class="titulo">
+    <h1 class="title">BANCO</h1>
+  </div>
+
+  <div class="input-container" *ngIf="esNuevo==false && esEdicion==false">
+    <input type="text" [(ngModel)]="nombre" class="search-input" placeholder="Buscar..." (input)="buscarPorNombre()">
+    <button class="button" (click)="nuevoProducto()">Agregar</button>
+  </div>
+
+
+  <div class="table-container" *ngIf="esNuevo==false && esEdicion==false">
+      <table class="responsive-table">
+        <thead>
+          <tr>
+            <th>Logo</th>
+            <th>Nombre del producto</th>
+            <th>Descripción</th>
+            <th>Fecha de liberación</th>
+            <th>Fecha de reestructuración</th>
+            <th>Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let producto of listaFiltrada">
+            <td data-label="Logo">
+              <img [src]="producto.logo" alt="Imagen Redondeada" class="rounded-image">
+            <td data-label="Nombre">{{ producto.name }}</td>
+            <td data-label="Descripción">{{ producto.description }}</td>
+            <td data-label="Liberación">{{ producto.date_release }}</td>
+            <td data-label="Reestructuración">{{ producto.date_revision }}</td>
+            <td data-label="">
+                <button class="button" (click)="editarProducto(producto)">Editar</button>
+              <button class="button-delete" (click)="eliminarProducto(producto)">Eliminar</button>
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="paginator">
+        <label > {{selectedValue}} Resultados</label>
+        <select class="selectList" [(ngModel)]="selectedValue" (change)="onSelectPaginator()">
+          <option *ngFor="let value of [5,10,15]" [value]="value">{{ value }}</option>
+        </select>
+      </div>
+  </div>
+
+</div>
+<div class="card" *ngIf="esNuevo || esEdicion">
+  <div class="card-header">
+    <h2>Formulario de Registro</h2>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="frmProducto" >
+      <div class="form-row">
+        <div class="form-group">
+          <label for="id">ID</label>
+          <input id="id" formControlName="id" type="text"  (blur)="verificarIdExistente()"/>
+          <div class="error" *ngIf="frmProducto.get('id')?.invalid && frmProducto.get('id')?.touched">
+            ID no válido
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="nombre">Nombre</label>
+          <input id="nombre" formControlName="name" type="text" />
+          <div class="error" *ngIf="frmProducto.get('name')?.invalid && frmProducto.get('name')?.touched">
+            Nombre no válido
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="descripcion">Descripción</label>
+          <input id="descripcion" formControlName="description" type="text" />
+          <div class="error" *ngIf="frmProducto.get('description')?.invalid && frmProducto.get('description')?.touched">
+            Descripción no válido
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="logo">Logo</label>
+          <input id="logo" formControlName="logo" type="text" />
+          <div class="error" *ngIf="frmProducto.get('logo')?.invalid && frmProducto.get('logo')?.touched">
+            Logo no válido
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+          <div class="form-group">
+            <label for="release">Fecha Liberación</label>
+            <input id="release" formControlName="date_release" type="date" [min]="minDate"/>
+            <div class="error" *ngIf="frmProducto.get('date_release')?.invalid && frmProducto.get('date_release')?.touched">
+              Fecha Liberación no válido
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="revicion">Fecha Revición</label>
+            <input id="revicion" formControlName="date_revision" type="date" />
+          </div>
+
+      </div>
+      <br>
+      <button class="button" (click)="reiniciarFormulario()" >Reiniciar</button>
+      <button class="button" [disabled]="frmProducto.invalid" (click)="guardarProducto()">Enviar</button>
+    </form>
+  </div>
+</div>
