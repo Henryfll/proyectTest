@@ -4,7 +4,6 @@ import { ProductComponent } from '../components/product/product.component';
 import { ROUTE_PRODUCTS } from '../routes/product-rounting.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
 
 
 

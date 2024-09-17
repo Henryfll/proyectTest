@@ -74,7 +74,11 @@ body {
 .button:hover {
   background-color: #0056b3;
 }
-
+input {
+  width: 100%; /* Ocupa todo el ancho disponible del contenedor */
+  padding: 10px;
+  border: 1px solid #ccc;
+}
 .table-container {
   overflow-x: auto;
   background-color: #fff;
@@ -112,7 +116,7 @@ body {
 }
 
 .responsive-table th {
-  background-color: #000000;
+  background-color: #bab8b8;
   color: #fff;
 }
 

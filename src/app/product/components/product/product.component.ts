@@ -101,8 +101,8 @@ export class ProductComponent implements OnInit{
 
   guardarProducto(){
     let producto:Product={
-      id: this.frmProducto.get("id")!.value,
-      name: this.frmProducto.get("name")!.value,
+      id: this.frmProducto.get("id")?.value,
+      name: this.frmProducto.get("name")?.value,
       description: this.frmProducto.get("description")?.value,
       logo: this.frmProducto.get("logo")?.value,
       date_release: this.frmProducto.get("date_release")?.value,
@@ -168,7 +168,7 @@ export class ProductComponent implements OnInit{
       if(this.nombre==''){
         this.listarProductos();
       }else{
-        let productoBusqueda=this.listaProductos.find( producto=> producto.name==this.nombre);
+        let productoBusqueda=this.listaProductos.find( producto=>producto.name==this.nombre);
         if(productoBusqueda!= undefined){
           this.listaFiltrada=[productoBusqueda];
         }else{
